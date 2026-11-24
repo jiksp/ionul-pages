@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MTA 아이오늘 - 태권도장 관리 프로그램</title>
-<meta name="description" content="학부모님이 전화하기 전에 앱이 먼저 알려 드립니다. 출석 체크, 수업료 청구와 미납 안내, 셔틀 위치까지 관리하는 태권도장 관리 프로그램. 이용료는 결제액의 0.5%로, 결제사 수수료에 포함돼 있습니다.">
+<title>아이오늘 - 학원 관리 프로그램</title>
+<meta name="description" content="학부모님이 전화하기 전에 앱이 먼저 알려 드립니다. 출석 체크, 수업료 청구와 미납 안내, 셔틀 위치까지 관리하는 학원 관리 프로그램 아이오늘. 이용료는 결제액의 0.5%로, 결제사 수수료에 포함돼 있습니다.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1216" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="MTA 아이오늘">
-<meta property="og:title" content="MTA 아이오늘 - 태권도장 관리 프로그램">
-<meta property="og:description" content="학부모님이 전화하기 전에, 앱이 먼저 알려 드립니다. 태권도장 관리 프로그램 MTA 아이오늘.">
-<meta property="og:url" content="https://mta.ionul.co.kr/">
-<link rel="canonical" href="https://mta.ionul.co.kr/">
-<meta property="og:image" content="https://mta.ionul.co.kr/assets/img/og.png">
+<meta property="og:site_name" content="아이오늘">
+<meta property="og:title" content="아이오늘 - 학원 관리 프로그램">
+<meta property="og:description" content="학부모님이 전화하기 전에, 앱이 먼저 알려 드립니다. 학원 관리 프로그램 아이오늘.">
+<meta property="og:url" content="https://ionul.co.kr/">
+<link rel="canonical" href="https://ionul.co.kr/">
+<meta property="og:image" content="https://ionul.co.kr/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/img/icon-64.png">
@@ -534,8 +534,8 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
 .tour { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); }
 .tour-stage { position: sticky; top: max(88px, calc(50vh - 318px)); align-self: start; display: grid; justify-items: center; padding-block: 8px; }
 .tour-stage .device { --device-w: min(300px, calc((100svh - 150px) * 0.44)); }
-.tour-stage .screen img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s var(--ease); }
-.tour-stage .screen img.is-on { opacity: 1; }
+.tour-stage .screen > [data-step] { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s var(--ease); }
+.tour-stage .screen > .is-on { opacity: 1; }
 .tour-steps { display: grid; }
 .tour-step { min-height: 52vh; display: grid; align-content: center; gap: 14px; padding-block: 28px; }
 .tour-step .step-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); color: var(--accent-text); box-shadow: inset 0 0 0 1px var(--line); }
@@ -572,6 +572,20 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
 .join-media .device { --device-w: 270px; }
 @media (max-width: 899px) { .join { grid-template-columns: 1fr; } }
 
+/* 앱 화면을 넣기 전(2026-11-24): 첫 화면은 관리자 화면 하나, 학부모님 앱 기능은 카드로만 보여 줍니다.
+   앱 화면 칸이 있던 원본은 index.src.app-frames.bak.html 에 있습니다. */
+.roles-visual.solo { grid-template-columns: minmax(0, 1fr); }
+.feats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.feats > .tile { grid-column: span 2; }
+.feats > .tile:nth-child(n+4) { grid-column: span 3; }
+@media (max-width: 899px) {
+  .feats > .tile, .feats > .tile:nth-child(n+4) { grid-column: span 3; }
+  .feats > .tile:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 599px) { .feats > .tile, .feats > .tile:nth-child(n+4) { grid-column: 1 / -1; } }
+.join-solo { grid-template-columns: minmax(0, 1fr); }
+.join-solo > div { max-width: 760px; }
+
 /* 학부모 자주 묻는 것: 펼치지 않고 바로 읽는 2열 */
 .qa { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .qa-item { background: var(--surface); border-radius: var(--r-card); padding: clamp(22px, 2.6vw, 30px); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 10px; align-content: start; }
@@ -602,6 +616,14 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* 화면 자리: 학원용 관리자·앱이 생기면 캡처를 찍어 이미지로 바꿉니다. */
+.ph { display: grid; place-content: center; justify-items: center; gap: 6px; text-align: center; padding: 16px; background: repeating-linear-gradient(135deg, var(--bg-mist) 0 14px, var(--bg-wash) 14px 28px); color: var(--text-3); }
+.ph strong { color: var(--text-2); font-weight: 700; font-size: clamp(12px, 2.4cqw, 20px); letter-spacing: -0.02em; }
+.ph span { font-size: clamp(10px, 1.6cqw, 14px); }
+.ph-phone { position: absolute; inset: 0; padding: 10%; }
+.ph-phone strong { font-size: clamp(11px, 7cqw, 18px); }
+.ph-phone span { font-size: clamp(9px, 5cqw, 13px); }
 </style>
 </head>
 <body>
@@ -658,33 +680,33 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
 
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#main" aria-label="MTA 아이오늘 처음으로">
+    <a class="brand" href="#main" aria-label="아이오늘 처음으로">
       <img src="assets/img/icon-64.png" width="30" height="30" alt="">
-      <span>MTA 아이오늘</span>
+      <span>아이오늘</span>
     </a>
     <nav class="switch" aria-label="안내 대상 선택">
-      <a href="#owner" data-part="owner">관장님</a>
+      <a href="#owner" data-part="owner">원장님</a>
       <a href="#parents" data-part="parents">학부모님</a>
     </nav>
     <a class="nav-link hide-m" href="#pricing">요금</a>
     <div class="header-actions">
-      <a class="nav-link" href="https://mta-admin.ionul.co.kr/">관리자 로그인</a>
-      <a class="btn btn-primary btn-sm" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
+      <a class="nav-link" href="https://academy.ionul.co.kr/login">관리자 로그인</a>
+      <a class="btn btn-primary btn-sm" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
     </div>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- ① 핵심 소개: 관장님 7, 학부모 3 -->
+  <!-- ① 핵심 소개: 원장님 7, 학부모님 3 -->
   <section class="hero" id="intro" aria-labelledby="hero-title">
     <div class="wrap">
       <div class="hero-copy">
-        <p class="eyebrow">태권도장 관리 프로그램</p>
+        <p class="eyebrow">학원 관리 프로그램</p>
         <h1 class="h1" id="hero-title"><span class="nb">학부모님이</span> <span class="nb">전화하기 전에,</span><br> <span class="nb">앱이 먼저</span> <span class="nb">알려 드립니다</span></h1>
         <p class="lead">출석을 체크하면 <span class="nb">등원 알림이,</span> 셔틀에 태우면 <span class="nb">탑승 알림이,</span> 청구일이 되면 청구서가 <span class="nb">학부모님 앱으로</span> 갑니다.</p>
         <div class="cta-row" id="hero-cta">
-          <a class="btn btn-primary btn-lg" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
+          <a class="btn btn-primary btn-lg" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
           <a class="btn btn-quiet btn-lg" href="#parents">학부모님 앱 안내
             <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
           </a>
@@ -692,14 +714,10 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <ul class="cta-note" aria-label="시작 조건"><li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>이용료는 결제액의 0.5%</li><li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>프로그램 설치 없음</li><li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>영업일 기준 1일 이내 승인</li></ul>
       </div>
 
-      <div class="roles-visual">
+      <div class="roles-visual solo">
         <figure class="role-shot role-owner">
-          <figcaption class="role-label"><svg class="icon" aria-hidden="true"><use href="#i-device-desktop"/></svg>관장님이 보는 관리자 페이지</figcaption>
-          <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/dashboard</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-dashboard.webp" width="1600" height="862" fetchpriority="high" alt="관리자 페이지 대시보드 화면. 9월 25일 기준 오늘 출석 7/8명, 이번 달 수납 4,200,000원, 수강생 12명과 오늘 수업 두 개의 출석 확인 완료 상태가 보입니다."></div></div>
-        </figure>
-        <figure class="role-shot role-parent">
-          <figcaption class="role-label"><svg class="icon" aria-hidden="true"><use href="#i-device-mobile"/></svg>학부모님이 보는 아이오늘 앱</figcaption>
-          <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-home.webp" width="660" height="1434" alt="아이오늘 앱 홈 화면. 수업 캘린더, QR 출석체크, 특별 수업, 학원 소식 카드 아래에 납부할 청구서 1건이 표시된 ‘수업료 결제 및 내역’과 셔틀버스 실시간 위치, 학원 초대코드 등록 메뉴가 있습니다."></div></div></div>
+          <figcaption class="role-label"><svg class="icon" aria-hidden="true"><use href="#i-device-desktop"/></svg>원장님이 보는 관리자 페이지</figcaption>
+          <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/dashboard</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-dashboard.webp" width="1600" height="862" fetchpriority="high" alt="관리자 페이지 대시보드 화면. 11월 25일 기준 오늘 출석 5/20명, 이번 달 수납 4,050,000원, 수강생 30명, 알림톡 약 120건 발송 가능이 보이고, 오늘 수업 두 개마다 출석 체크 버튼이 있습니다."></div></div>
         </figure>
       </div>
       <p class="caption hero-caption">화면 속 정보는 예시입니다.</p>
@@ -709,24 +727,23 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
   <section class="section section-mist" aria-labelledby="roles-title">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="h2" id="roles-title"><span class="nb">관장님이 입력하면,</span> <span class="nb">학부모님 앱에</span> <span class="nb">바로 보입니다</span></h2>
+        <h2 class="h2" id="roles-title"><span class="nb">원장님이 입력하면,</span> <span class="nb">학부모님 앱에</span> <span class="nb">바로 보입니다</span></h2>
       </div>
       <div class="roles">
         <article class="role-card">
           <div class="role-card-head">
             <span class="role-tile"><svg class="icon" aria-hidden="true"><use href="#i-device-desktop"/></svg></span>
-            <h3 class="h3">관장님은 관리자 페이지로</h3>
+            <h3 class="h3">원장님은 관리자 페이지로</h3>
           </div>
           <ul class="role-list">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>출석 체크와 <span class="nb">칭찬 포인트</span></span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg>출석 체크와 출결 현황</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-receipt-2"/></svg>수업료 청구, 미납 안내, 수납 관리</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-bus"/></svg>셔틀 승하차 관리</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>승급심사와 도장 대회</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-speakerphone"/></svg>공지, 설문, 알림톡 발송</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-chart-bar"/></svg>수업료, 수강생 통계</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>사범님 계정 관리</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>선생님 계정 관리</li>
           </ul>
-          <a class="role-more" href="#owner">관장님 화면 자세히 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="role-more" href="#owner">원장님 화면 자세히 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </article>
         <article class="role-card role-card-parent">
           <div class="role-card-head">
@@ -737,7 +754,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
             <li><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><span class="nb">등원 알림</span></li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-map-pin"/></svg>셔틀버스 위치 확인</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg>수업료 결제와 납부확인서</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-message-circle"/></svg>도장 소식과 설문</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-message-circle"/></svg>학원 소식과 설문</li>
           </ul>
           <a class="role-more" href="#parents">학부모님 화면 자세히 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </article>
@@ -746,19 +763,19 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <li><svg class="icon" aria-hidden="true"><use href="#i-percentage"/></svg><span>이용료는 <span class="nb">결제액의 0.5%</span></span></li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-device-desktop"/></svg><span>설치 없이 PC에서 사용</span></li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-shield-check"/></svg><span>가입 신청 후 <span class="nb">영업일 기준 1일 이내</span> 승인</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-key"/></svg><span>학부모님은 도장에서 보낸 초대코드로 가입</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-key"/></svg><span>학부모님은 학원에서 보낸 초대코드로 가입</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- ② 관장님: 관리자 웹 화면만 -->
+  <!-- ② 원장님 -->
   <div class="part part-owner" id="owner">
 
     <header class="part-head" aria-labelledby="owner-title">
       <div class="wrap part-head-row">
         <span class="part-icon"><svg class="icon" aria-hidden="true"><use href="#i-device-desktop"/></svg></span>
         <div class="part-head-copy">
-          <h2 class="h2" id="owner-title">관장님을 위한 관리자 페이지</h2>
+          <h2 class="h2" id="owner-title">원장님을 위한 관리자 페이지</h2>
           <p class="lead">매일 하는 출석 체크부터 매달 하는 수업료 청구까지, 실제 화면으로 보여 드립니다.</p>
         </div>
       </div>
@@ -772,7 +789,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <div class="pains-legend" aria-hidden="true"><span>도입 전</span><span></span><span>아이오늘 도입 후</span></div>
         <ul class="pains">
           <li>
-            <p class="pain-now">수업 중에도, 운전 중에도 “우리 아이 어디쯤이에요?” 하는 전화가 옵니다.</p>
+            <p class="pain-now">수업 중에도 “우리 아이 도착했나요?”, 차량 운행 중에도 “지금 어디쯤이에요?” 하는 전화가 옵니다.</p>
             <span class="pain-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg></span>
             <p class="pain-next"><span class="nb">등원 알림과</span> 셔틀 위치를 학부모님이 앱에서 직접 확인합니다.</p>
           </li>
@@ -799,16 +816,16 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
       <div class="wrap split">
         <div class="split-copy">
           <h2 class="h2" id="attend-title">출석 체크 한 번이면 <span class="nb">등원 알림까지</span> 끝납니다</h2>
-          <p class="body">아이들을 여러 명 선택해 출석, 결석, 조퇴를 한 번에 처리합니다. 같은 화면에서 인성, 협동처럼 잘한 점에 <span class="nb">칭찬 포인트도</span> <span class="nb">줄 수 있습니다.</span></p>
+          <p class="body">아이들을 여러 명 선택해 출석, 결석, 조퇴를 한 번에 처리합니다. 출석을 체크하는 순간 학부모님 앱으로 <span class="nb">등원 알림이</span> 갑니다.</p>
           <ul class="facts">
             <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-qrcode"/></svg></span><span>QR, 바코드, 출결번호, NFC 카드 출석도 지원합니다.</span></li>
-            <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span><span>학부모님은 <span class="nb">등원 알림을</span> 받고, 앱의 수업 캘린더에서 출석 기록을 다시 <span class="nb">볼 수 있습니다.</span></span></li>
+            <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span><span>학부모님은 앱의 수업 캘린더에서 출석 기록을 다시 <span class="nb">볼 수 있습니다.</span></span></li>
             <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span>날짜별, 수업별 출결 현황을 확인하고 월간 출결표도 <span class="nb">출력할 수 있습니다.</span></span></li>
           </ul>
         </div>
         <figure class="split-media" data-rise>
-          <div class="pair"><div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/attendance_check</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-attendance.webp" width="1300" height="1300" loading="lazy" alt="수업 출석 체크 화면. 9월 25일 유아부 A반 4명 중 김도윤, 박서아가 선택되어 있고, 출석, 결석, 조퇴 버튼과 인성, 자신감, 협동, 발차기 칭찬 포인트 버튼이 보입니다."></div></div><div class="device pair-phone"><div class="iphone"><div class="screen"><img src="assets/img/app-calendar.webp" width="660" height="1434" loading="lazy" alt="학부모님 앱 수업 캘린더. 9월 25일 유아부 A반 출석과 등원 15:02가 보입니다."></div></div></div></div>
-          <figcaption>관리자 페이지에서 출석을 체크하면, 학부모님 앱 수업 캘린더에 등원 시각이 남습니다.</figcaption>
+          <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/attendance_check</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-attendance.webp" width="1300" height="1300" loading="lazy" alt="수업 출석 체크 화면. 11월 25일 월수금 저학년반 12명 중 8명이 출석, 1명이 결석으로 처리되어 있고, 선택한 두 명에게 출석, 결석, 조퇴를 한 번에 적용하는 버튼이 보입니다."></div></div>
+          <figcaption>출석 체크 화면</figcaption>
         </figure>
       </div>
     </section>
@@ -817,15 +834,15 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
       <div class="wrap">
         <div class="section-head">
           <h2 class="h2" id="fee-title">수업료 청구도, <span class="nb">미납 안내도</span> <span class="nb">자동으로 갑니다</span></h2>
-          <p class="lead">청구서는 정해 둔 날짜에, 미납 안내는 기한이 지난 다음 날 발송됩니다. 학부모님이 카드나 간편결제로 낸 수업료는 본사를 거치지 않고 <span class="nb">도장 계좌로</span> 정산됩니다.</p>
+          <p class="lead">청구서는 정해 둔 날짜에, 미납 안내는 기한이 지난 다음 날 발송됩니다. 학부모님이 카드나 간편결제로 낸 수업료는 본사를 거치지 않고 <span class="nb">학원 계좌로</span> 정산됩니다.</p>
         </div>
         <div class="fee-grid" data-rise>
           <figure class="fee-col">
-            <div class="pair"><div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/send_invoice</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-bill-plan.webp" width="1200" height="915" loading="lazy" alt="청구서 예약 화면. 학원 전체, 수업별, 학생별로 예약할 수 있고, 9월 수강료를 매월 1일 9시에 발송하며 납부 기한을 7일 후로 설정한 모습입니다."></div></div><div class="device pair-phone"><div class="iphone"><div class="screen"><img src="assets/img/app-billing.webp" width="660" height="1434" loading="lazy" alt="학부모님 앱 수업료 화면. 10월 22일까지 낼 수업료 150,000원과 결제하기 버튼이 보입니다."></div></div></div></div>
-            <figcaption>청구서를 예약해 두면, 학부모님 앱에 결제할 수업료로 표시됩니다.</figcaption>
+            <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/send_invoice</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-bill-plan.webp" width="1200" height="915" loading="lazy" alt="청구서 예약 화면. 학원 전체, 수업별, 학생별로 예약할 수 있고, 수강료 청구서를 매월 1일 9시에 발송하며 납부 기한을 7일 후로 정하는 칸이 보입니다."></div></div>
+            <figcaption>청구서 예약 화면</figcaption>
           </figure>
           <figure class="fee-col">
-            <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/statistics/tuition</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-tuition.webp" width="1200" height="915" loading="lazy" alt="수강료 통계 화면. 최근 6개월 수납률 93%, ‘청구한 돈’ 21,600,000원, ‘실제로 받은 돈’ 20,100,000원, ‘아직 못 받은 돈’ 1,500,000원과 월별 수납률이 보입니다."></div></div>
+            <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/statistics/tuition</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-tuition.webp" width="1200" height="915" loading="lazy" alt="수강료 통계 화면. 최근 6개월 수납률 98%, ‘청구한 돈’ 22,650,000원, ‘실제로 받은 돈’ 22,200,000원, ‘아직 못 받은 돈’ 450,000원과 달마다의 수납률이 보입니다."></div></div>
             <figcaption>수강료 통계 화면</figcaption>
           </figure>
         </div>
@@ -849,8 +866,8 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
           </ul>
         </div>
         <figure class="split-media" data-rise>
-          <div class="pair"><div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/vehicle_boarding</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-vehicle.webp" width="1300" height="812" loading="lazy" alt="관리자 페이지의 차량 탑승 관리 화면. 2호차와 1호차 중 차량을 선택하고, 학생별로 탑승, 하차 버튼을 누르는 화면입니다."></div></div><div class="device pair-phone"><div class="iphone"><div class="screen"><img src="assets/img/app-bus.webp" width="660" height="1434" loading="lazy" alt="학부모님 앱 셔틀버스 위치 화면. 2호차가 지도 위에 표시됩니다."></div></div></div></div>
-          <figcaption>‘오늘 탑승’ 화면을 켜 두면, 학부모님 앱 지도에 차량 위치가 표시됩니다. (전화번호는 가림 처리)</figcaption>
+          <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/vehicle_boarding</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-vehicle.webp" width="1300" height="812" loading="lazy" alt="관리자 페이지의 차량 탑승 관리 화면. 차량 두 대 중 한 대를 선택했고, 학생별 탑승, 하차 버튼과 탑승 완료, 하차 완료 표시가 보입니다."></div></div>
+          <figcaption>오늘 탑승 화면</figcaption>
         </figure>
       </div>
     </section>
@@ -858,106 +875,74 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
     <section class="section" aria-labelledby="more-title">
       <div class="wrap">
         <div class="section-head">
-          <h2 class="h2" id="more-title">승급심사, 대회, 공지까지 한곳에서</h2>
+          <h2 class="h2" id="more-title">공지부터 <span class="nb">선생님 관리까지</span> 한곳에서</h2>
         </div>
         <div class="bento">
           <article class="tile tile-accent b-talk">
             <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-message-circle"/></svg></span>
             <h3 class="h3"><span class="nb">카카오 알림톡</span></h3>
-            <p>앱을 설치하지 않은 학부모님께도 청구서와 미납 안내가 <span class="nb">카카오 알림톡으로</span> 가고, 알림톡의 링크에서 <span class="nb">결제할 수 있습니다.</span> 남은 포인트로 몇 건 더 <span class="nb">보낼 수 있는지도</span> 함께 표시됩니다.</p>
-            <div class="win" data-rise><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/point</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-point.webp" width="900" height="534" loading="lazy" alt="알림톡 포인트 화면. 남은 포인트와 1,000P부터 30,000P까지의 충전 금액, 1,000P로 약 100건을 보낼 수 있다는 안내가 보입니다."></div></div>
+            <p>앱을 설치하지 않은 학부모님께도 청구서와 미납 안내가 <span class="nb">카카오 알림톡으로</span> 가고, 알림톡의 링크에서 결제할 수 있습니다. 남은 포인트로 몇 건 더 <span class="nb">보낼 수 있는지도</span> 함께 표시됩니다.</p>
+            <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>academy.ionul.co.kr<b>/point</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-point.webp" width="900" height="534" loading="lazy" alt="알림톡 포인트 화면. 남은 포인트 1,200P와 1,000P부터 30,000P까지의 충전 금액, 1,000P로 약 100건을 보낼 수 있다는 안내가 보입니다."></div></div>
           </article>
           <article class="tile tile-mist b-exam">
-            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg></span>
-            <h3 class="h3">승급심사</h3>
-            <p class="tile-body">심사 대상자를 선택하고 채점 결과를 확정하면 승급까지 한 번에 처리됩니다. 결과는 학부모님께 알림으로 전달되고, 앱의 <span class="nb">‘내정보 › 수련’에서</span> 다시 <span class="nb">볼 수 있습니다.</span></p>
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-speakerphone"/></svg></span>
+            <h3 class="h3">공지와 설문</h3>
+            <p class="tile-body">공지, 수업 기록, 이벤트를 작성하면 학부모님 앱 소식에 게시됩니다. 방학 특강이나 상담 일정처럼 참석 여부를 받아야 할 때는 설문을 함께 올려 보세요.</p>
           </article>
           <article class="tile b-comp">
-            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg></span>
-            <h3 class="h3">도장 대회</h3>
-            <p>개인전과 팀전 대회를 만들고, 대회 당일 현장에서 채점합니다.</p>
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-notebook"/></svg></span>
+            <h3 class="h3">수업 계획표</h3>
+            <p>달력에서 날짜를 눌러 그날의 수업 내용을 기록합니다. 원장님과 선생님이 같은 계획표를 공유합니다.</p>
           </article>
           <article class="tile b-plan">
-            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-notebook"/></svg></span>
-            <h3 class="h3">수련계획표</h3>
-            <p>달력에서 날짜를 눌러 그날의 수련 내용을 기록합니다. 관장님과 사범님이 같은 계획표를 공유합니다.</p>
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart-bar"/></svg></span>
+            <h3 class="h3">수강생 통계</h3>
+            <p>재원생 구성과 월별 신규 등록, 퇴원 흐름을 숫자로 확인합니다.</p>
           </article>
           <article class="tile b-staff">
             <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span>
-            <h3 class="h3">사범님 계정</h3>
-            <p>사범님 계정을 따로 만들어 출결과 수업을 <span class="nb">맡길 수 있습니다.</span> 수강료, 통계, 직원 관리 메뉴는 관장님 계정에서만 보입니다.</p>
+            <h3 class="h3">선생님 계정</h3>
+            <p>선생님 계정을 따로 만들어 출결과 수업을 <span class="nb">맡길 수 있습니다.</span> 수강료, 통계, 직원 관리 메뉴는 원장님 계정에서만 보입니다.</p>
           </article>
           <article class="tile tile-mist b-notice">
-            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-speakerphone"/></svg></span>
-            <h3 class="h3">공지와 설문</h3>
-            <p class="tile-body">공지, 수업 기록, 이벤트를 작성하면 학부모님 앱 소식에 게시됩니다. 설문을 함께 올려 참석 여부도 <span class="nb">받을 수 있습니다.</span></p>
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-user-plus"/></svg></span>
+            <h3 class="h3">원생 등록 신청</h3>
+            <p class="tile-body">학부모님께 등록 링크를 보내면 학부모님이 앱에서 아이 정보를 입력해 신청합니다. 원장님은 확인하고 승인만 하시면 됩니다.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="mta" aria-labelledby="mta-title" style="padding-top: 0">
-      <div class="wrap">
-        <div class="mta">
-          <div class="mta-grid">
-            <div class="mta-copy">
-              <p class="eyebrow">MTA 칭찬 포인트</p>
-              <h2 class="h2" id="mta-title">실력만큼 태도도 칭찬합니다</h2>
-              <p class="body">띠 색만으로는 보이지 않는 아이의 성장을 <span class="nb">칭찬 포인트로</span> 기록합니다. 수업 중 잘한 점이 보이면 버튼 한 번으로 포인트를 주고, 칭찬 항목과 점수, 교환 상품은 도장에서 직접 정합니다.</p>
-              <ul class="facts">
-                <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg></span><span>100포인트부터 10,000포인트까지 7단계 보상권 기준표로 다음 목표까지 남은 점수를 확인합니다.</span></li>
-                <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart-bar"/></svg></span><span>아이별로 언제, 어떤 항목에서 포인트를 받았는지 기록이 남습니다.</span></li>
-                <li><span class="fact-icon"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg></span><span>칭찬 스티커, 수업 리더, 도복 할인 쿠폰 같은 교환 상품을 직접 등록합니다.</span></li>
-              </ul>
-            </div>
-            <div class="mta-media" data-rise>
-              <div class="win"><div class="win-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-nav"><svg class="icon"><use href="#i-chevron-left"/></svg><svg class="icon"><use href="#i-chevron-right"/></svg></span><span class="win-url"><svg class="icon"><use href="#i-lock"/></svg><span>mta-admin.ionul.co.kr<b>/students/1</b></span></span><span class="win-nav win-reload"><svg class="icon"><use href="#i-refresh"/></svg></span></div><div class="win-view"><img src="assets/img/browser-mta.webp" width="1300" height="672" loading="lazy" alt="수강생 상세의 포인트 마켓. 현재 보유 6점과 MTA 포인트 보상권 기준표 일곱 단계, 교환 상품 선택이 보입니다."></div></div>
-            </div>
-          </div>
-          <div class="goals">
-            <div class="goals-head">
-              <p>칭찬 항목을 정할 때 <span class="nb">참고할 수 있는</span> MTA 목표 20가지</p>
-              <div class="goals-key" aria-hidden="true"><span><i></i>인성 15</span><span><i class="t2"></i>수련 5</span></div>
-            </div>
-            <ul class="chips" aria-label="MTA 목표 20가지">
-              <li>예의</li><li>배려</li><li>겸손</li><li>질서</li><li>모범</li><li>책임감</li><li>양보</li><li>인내</li><li>노력</li><li>정직</li><li>협동</li><li>자립</li><li>자신감</li><li>성실</li><li>존중</li>
-              <li class="t2">체력</li><li class="t2">기본동작</li><li class="t2">품새</li><li class="t2">발차기</li><li class="t2">겨루기</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="fit" aria-labelledby="fit-title">
+    <section class="section" id="fit" aria-labelledby="fit-title" style="padding-top: 0">
       <div class="wrap">
         <div class="section-head">
-          <h2 class="h2" id="fit-title">이런 도장에 먼저 추천합니다</h2>
+          <h2 class="h2" id="fit-title">이런 학원에 먼저 추천합니다</h2>
           <p class="lead">처음부터 모든 기능을 쓰실 필요는 없습니다. 지금 가장 손이 많이 가는 일 하나부터 아이오늘로 옮겨 보세요.</p>
         </div>
         <ul class="fits">
           <li class="fit">
             <span class="tile-icon" aria-hidden="true"><svg class="icon"><use href="#i-bus"/></svg></span>
-            <h3 class="h3">셔틀을 직접 운행하는 도장</h3>
+            <h3 class="h3">셔틀을 운행하는 학원</h3>
             <p>운행 중에 걸려 오는 위치 문의가 부담이라면, 동승 선생님 휴대폰으로 ‘오늘 탑승’ 화면부터 켜 보세요.</p>
             <a class="fit-link" href="#bus-title">셔틀 기능 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </li>
           <li class="fit">
             <span class="tile-icon" aria-hidden="true"><svg class="icon"><use href="#i-receipt-2"/></svg></span>
-            <h3 class="h3">수업료를 계좌이체로 받는 도장</h3>
+            <h3 class="h3">수업료를 계좌이체로 받는 학원</h3>
             <p>저녁마다 통장 내역을 맞춰 보고 있다면, 다음 달 청구서를 예약해 두는 것부터 시작해 보세요. 미납 안내는 기한이 지나면 자동으로 갑니다.</p>
             <a class="fit-link" href="#fee-title">수업료 기능 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </li>
           <li class="fit">
             <span class="tile-icon" aria-hidden="true"><svg class="icon"><use href="#i-users"/></svg></span>
-            <h3 class="h3">사범님과 함께 운영하는 도장</h3>
-            <p>사범님 계정을 따로 만들어 출결과 수업을 맡기세요. 수강료와 통계 메뉴는 관장님 계정에서만 보입니다.</p>
-            <a class="fit-link" href="#more-title">사범님 계정 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <h3 class="h3">선생님이 여러 명인 학원</h3>
+            <p>선생님마다 계정을 만들어 출결과 수업을 맡기세요. 수강료와 통계 메뉴는 원장님 계정에서만 보입니다.</p>
+            <a class="fit-link" href="#more-title">선생님 계정 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </li>
           <li class="fit">
-            <span class="tile-icon" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg></span>
-            <h3 class="h3">인성 교육을 강조하는 도장</h3>
-            <p>승급심사만으로는 전하기 어려운 아이의 성장을 MTA <span class="nb">칭찬 포인트로</span> 기록해 보세요.</p>
-            <a class="fit-link" href="#mta-title"><span>MTA 칭찬 포인트 보기</span><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <span class="tile-icon" aria-hidden="true"><svg class="icon"><use href="#i-speakerphone"/></svg></span>
+            <h3 class="h3">공지와 참석 조사가 잦은 학원</h3>
+            <p>특강, 상담, 행사처럼 참석 여부를 받아야 할 때 공지에 설문을 붙여 보세요. 응답이 명단으로 정리됩니다.</p>
+            <a class="fit-link" href="#more-title">공지와 설문 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </li>
         </ul>
         <p class="fit-tip"><svg class="icon" aria-hidden="true"><use href="#i-info-circle"/></svg><span>어디서부터 시작할지 고민되신다면, 매일 쓰는 출석 체크와 매달 쓰는 청구서 예약 두 가지부터 시작하시길 권합니다.</span></p>
@@ -979,7 +964,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         </div>
         <div class="price-foot">
           <p>알림톡은 1,000원부터 충전하며, 1,000원이면 <span class="nb">약 100건을</span> <span class="nb">보낼 수 있습니다.</span></p>
-          <a class="btn btn-primary btn-lg" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
+          <a class="btn btn-primary btn-lg" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
         </div>
       </div>
     </section>
@@ -993,7 +978,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
           <li class="step">
             <span class="step-num" aria-hidden="true">1</span>
             <h3 class="h3">가입 신청</h3>
-            <p>도장 정보와 사업자등록번호를 입력하고, 사업자등록증 사진을 첨부합니다.</p>
+            <p>학원 정보와 사업자등록번호를 입력하고, 사업자등록증 사진을 첨부합니다.</p>
           </li>
           <li class="step">
             <span class="step-num" aria-hidden="true">2</span>
@@ -1007,8 +992,8 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
           </li>
         </ol>
         <div class="start-cta">
-          <a class="btn btn-primary btn-lg" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
-          <p>사업자등록증 사진 한 장만 준비해 주세요. 이미 가입하셨다면 <a href="https://mta-admin.ionul.co.kr/">관리자 로그인</a>으로 들어오세요.</p>
+          <a class="btn btn-primary btn-lg" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
+          <p>사업자등록증 사진 한 장만 준비해 주세요. 이미 가입하셨다면 <a href="https://academy.ionul.co.kr/login">관리자 로그인</a>으로 들어오세요.</p>
         </div>
       </div>
     </section>
@@ -1018,20 +1003,24 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <div class="faq-side">
           <h2 class="h2" id="faq-title">자주 묻는 질문</h2>
           <p class="body">더 궁금한 점은 <a href="mailto:info@ionul.co.kr">info@ionul.co.kr</a>로 문의해 주세요.</p>
-          <a class="btn btn-primary faq-cta" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
+          <a class="btn btn-primary faq-cta" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
         </div>
         <div class="faq">
           <details>
+            <summary>어떤 학원에서 쓸 수 있나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+            <p>출결, 수업료, 셔틀, 공지 관리가 필요한 학원이라면 과목과 관계없이 <span class="nb">쓰실 수 있습니다.</span> 태권도장이라면 승급심사와 MTA 칭찬 포인트가 들어 있는 <a href="https://mta.ionul.co.kr/">태권도장용 MTA 아이오늘</a>도 살펴보세요.</p>
+          </details>
+          <details>
             <summary>앱으로 받은 수업료는 어디로 들어오나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
-            <p>도장 사업자 명의로 맺은 결제사 가맹 계약에 따라 <span class="nb">도장 계좌로</span> 정산됩니다. 본사를 거치지 않습니다. 가맹 계약은 본사에서 안내해 드리며, 계약을 마친 뒤부터 카드나 간편결제로 수업료를 <span class="nb">받을 수 있습니다.</span> 그 전에도 청구서 발송과 현금, 계좌이체 수납 기록은 그대로 <span class="nb">쓸 수 있습니다.</span></p>
+            <p>학원 사업자 명의로 맺은 결제사 가맹 계약에 따라 학원 계좌로 정산됩니다. 본사를 거치지 않습니다. 가맹 계약은 본사에서 안내해 드리며, 계약을 마친 뒤부터 카드나 간편결제로 수업료를 <span class="nb">받을 수 있습니다.</span> 그 전에도 청구서 발송과 현금, 계좌이체 수납 기록은 그대로 <span class="nb">쓸 수 있습니다.</span></p>
           </details>
           <details>
             <summary>학부모님이 꼭 앱을 설치해야 하나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
             <p>청구서와 미납 안내는 앱이 없어도 <span class="nb">카카오 알림톡으로</span> 받고, 알림톡의 링크에서 결제까지 <span class="nb">하실 수 있습니다.</span> <span class="nb">등원 알림</span>, 셔틀 위치, 공지와 설문, 납부확인서는 앱에서 <span class="nb">확인할 수 있습니다.</span></p>
           </details>
           <details>
-            <summary><span>사범님도 함께 <span class="nb">쓸 수 있나요?</span></span><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
-            <p>네. 직원 관리에서 사범님 계정을 <span class="nb">만들 수 있습니다.</span> 사범님은 출결과 수업 기록을 관리하고, 수강료, 통계, 직원 관리 메뉴는 관장님 계정에서만 보입니다.</p>
+            <summary>선생님도 함께 쓸 수 있나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+            <p>네. 직원 관리에서 선생님 계정을 <span class="nb">만들 수 있습니다.</span> 선생님은 출결과 수업 기록을 관리하고, 수강료, 통계, 직원 관리 메뉴는 원장님 계정에서만 보입니다.</p>
           </details>
           <details>
             <summary>셔틀 위치를 보려면 GPS 단말기가 필요한가요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
@@ -1039,7 +1028,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
           </details>
           <details>
             <summary>기존 수강생 명단은 어떻게 옮기나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
-            <p>현재는 한 명씩 등록하는 방식입니다. 학부모님께 등록 링크를 보내면 앱에서 아이 정보를 입력해 신청하고, 관장님은 승인만 하시면 됩니다.</p>
+            <p>현재는 한 명씩 등록하는 방식입니다. 학부모님께 등록 링크를 보내면 앱에서 아이 정보를 입력해 신청하고, 원장님은 승인만 하시면 됩니다.</p>
           </details>
           <details>
             <summary>알림톡 비용은 별도인가요?<svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
@@ -1050,7 +1039,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
     </section>
   </div>
 
-  <!-- ③ 학부모: 아이오늘 앱 화면만 -->
+  <!-- ③ 학부모님 -->
   <div class="part part-parents" id="parents">
 
     <header class="part-head" aria-labelledby="parents-title">
@@ -1058,7 +1047,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <span class="part-icon"><svg class="icon" aria-hidden="true"><use href="#i-device-mobile"/></svg></span>
         <div class="part-head-copy">
           <h2 class="h2" id="parents-title">학부모님을 위한 아이오늘 앱</h2>
-          <p class="lead">아이가 도장에 잘 도착했는지, 셔틀이 어디쯤 왔는지, 이번 달 수업료는 얼마인지 전화하지 않아도 앱에서 <span class="nb">확인할 수 있습니다.</span> 앱스토어나 구글 플레이에서 <span class="nb">‘아이오늘’을</span> 검색하세요.</p>
+          <p class="lead">아이가 학원에 잘 도착했는지, 셔틀이 어디쯤 왔는지, 이번 달 수업료는 얼마인지 전화하지 않아도 앱에서 <span class="nb">확인할 수 있습니다.</span> 앱스토어나 구글 플레이에서 <span class="nb">‘아이오늘’을</span> 검색하세요.</p>
           <div class="store-row" id="app">
             <a class="store-btn" href="https://apps.apple.com/kr/app/id6795511939" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-brand-apple"/></svg>
@@ -1073,58 +1062,44 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
       </div>
     </header>
 
-    <section class="section" aria-label="앱 둘러보기">
-      <div class="wrap tour">
-        <div class="tour-stage" aria-hidden="true">
-          <div class="device"><div class="iphone"><div class="screen">
-              <img class="is-on" data-step="0" src="assets/img/app-calendar.webp" width="660" height="1434" alt="">
-              <img data-step="1" src="assets/img/app-bus.webp" width="660" height="1434" alt="" loading="lazy">
-              <img data-step="2" src="assets/img/app-billing.webp" width="660" height="1434" alt="" loading="lazy">
-              <img data-step="3" src="assets/img/app-post.webp" width="660" height="1434" alt="" loading="lazy">
-              <img data-step="4" src="assets/img/app-notify.webp" width="660" height="1434" alt="" loading="lazy">
-          </div></div></div>
-        </div>
-        <ol class="tour-steps">
-          <li class="tour-step" data-step="0">
-            <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-calendar.webp" width="660" height="1434" loading="lazy" alt="수업 캘린더 화면. 9월 수업이 있는 날에 점이 찍혀 있고, 9월 25일 유아부 A반 출석과 등원 15:02가 보입니다."></div></div></div>
-            <span class="step-icon" aria-hidden="true"><svg class="icon"><use href="#i-calendar-check"/></svg></span>
+    <section class="section" aria-label="앱에서 할 수 있는 일">
+      <div class="wrap">
+        <div class="feats">
+          <article class="tile">
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg></span>
             <h3 class="h3">아이가 도착하면 <span class="nb">등원 알림이</span> 옵니다</h3>
-            <p>도장에서 출석을 체크하면 그 즉시 휴대폰으로 알려 드립니다. 날짜별 수업 일정과 출석 기록은 수업 캘린더에 남습니다.</p>
-          </li>
-          <li class="tour-step" data-step="1">
-            <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-bus.webp" width="660" height="1434" loading="lazy" alt="셔틀버스 실시간 위치 화면. 2호차가 지도 위에 표시됩니다."></div></div></div>
-            <span class="step-icon" aria-hidden="true"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+            <p>학원에서 출석을 체크하면 그 즉시 휴대폰으로 알려 드립니다. 날짜별 수업 일정과 출석 기록은 수업 캘린더에 남습니다.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-map-pin"/></svg></span>
             <h3 class="h3">셔틀버스 위치를 실시간으로 확인합니다</h3>
             <p>아이가 탄 셔틀버스가 지금 어디쯤인지 지도에 표시됩니다. 타고 내릴 때도 알림이 옵니다.</p>
-          </li>
-          <li class="tour-step" data-step="2">
-            <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-billing.webp" width="660" height="1434" loading="lazy" alt="수업료 결제 및 내역 화면. 위에 10월 22일까지 낼 유아부 A반 수업료 150,000원과 결제하기 버튼이 있고, 아래에 2026년 ‘낸 돈’ 300,000원, ‘안 낸 돈’ 150,000원, 납부확인서 저장 버튼과 10월 납부 내역이 보입니다."></div></div></div>
-            <span class="step-icon" aria-hidden="true"><svg class="icon"><use href="#i-cash"/></svg></span>
+          </article>
+          <article class="tile">
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg></span>
             <h3 class="h3">수업료도 앱에서 확인하고 결제합니다</h3>
             <p>홈의 <span class="nb">‘수업료 결제 및 내역’에</span> 납부할 청구서 수가 표시됩니다. 청구서 알림을 누르면 결제 화면이 열리고, 한 해 납부확인서도 앱에서 <span class="nb">저장할 수 있습니다.</span></p>
-          </li>
-          <li class="tour-step" data-step="3">
-            <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-post.webp" width="660" height="1434" loading="lazy" alt="도장 소식 화면. 최근 공지사항과 한빛 태권도장의 셔틀 노선 변경 안내, 사범님의 수업 기록이 보입니다."></div></div></div>
-            <span class="step-icon" aria-hidden="true"><svg class="icon"><use href="#i-message-circle"/></svg></span>
-            <h3 class="h3">도장 공지와 소식을 앱으로 받습니다</h3>
+          </article>
+          <article class="tile">
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-message-circle"/></svg></span>
+            <h3 class="h3">학원 공지와 소식을 앱으로 받습니다</h3>
             <p>소식마다 댓글을 <span class="nb">남길 수 있고</span>, 참석 여부를 묻는 설문에도 앱에서 답합니다.</p>
-          </li>
-          <li class="tour-step" data-step="4">
-            <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-notify.webp" width="660" height="1434" loading="lazy" alt="푸시 알림 설정 화면. 등원, 하원, 셔틀, 수업, 소식, 수강료, 승급심사 알림을 종류별로 켜고 끌 수 있습니다."></div></div></div>
-            <span class="step-icon" aria-hidden="true"><svg class="icon"><use href="#i-bell"/></svg></span>
+          </article>
+          <article class="tile">
+            <span class="tile-icon"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span>
             <h3 class="h3">필요한 알림만 골라 받습니다</h3>
-            <p>등원, 셔틀, 수업, 소식, 수업료, 승급심사 알림을 종류별로 켜고 끕니다. 승급심사 결과와 띠 기록은 <span class="nb">‘내정보 › 수련’에서</span> 확인하세요.</p>
-          </li>
-        </ol>
+            <p>등원, 셔틀, 수업, 소식, 수업료 알림을 종류별로 켜고 끕니다.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section" aria-labelledby="join-title" style="padding-top: 0">
-      <div class="wrap join">
+      <div class="wrap join join-solo">
         <div>
           <div class="section-head" style="margin-bottom: 20px">
-            <h2 class="h2" id="join-title">가입할 때는 도장에서 받은 초대코드가 필요합니다</h2>
-            <p class="lead">아이오늘은 도장에 다니는 원생 가족만 <span class="nb">이용할 수 있는 앱입니다.</span></p>
+            <h2 class="h2" id="join-title">가입할 때는 학원에서 받은 초대코드가 필요합니다</h2>
+            <p class="lead">아이오늘은 학원에 다니는 원생 가족만 <span class="nb">이용할 수 있는</span> 앱입니다.</p>
           </div>
           <ol class="vsteps">
             <li class="vstep">
@@ -1140,18 +1115,14 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
             <li class="vstep">
               <span class="vstep-icon" aria-hidden="true"><svg class="icon"><use href="#i-key"/></svg></span>
               <h3 class="h3">초대코드 입력</h3>
-              <p>도장에서 보낸 <span class="nb">카카오 알림톡의</span> 링크를 누르거나, 앱 홈의 <span class="nb">‘학원 초대코드 등록’에서</span> 6자리 코드를 입력합니다.</p>
+              <p>학원에서 보낸 <span class="nb">카카오 알림톡의</span> 링크를 누르거나, 앱 홈의 <span class="nb">‘학원 초대코드 등록’에서</span> 6자리 코드를 입력합니다.</p>
             </li>
           </ol>
           <div class="join-note">
             <strong>초대코드는 받은 후 48시간 안에 한 번만 <span class="nb">사용할 수 있습니다.</span></strong>
-            <span>아이 정보가 아직 등록되지 않았다면 앱에서 <span class="nb">‘원생 신규 신청’을</span> 해 주세요. 도장에서 승인하면 연결됩니다.</span>
+            <span>아이 정보가 아직 등록되지 않았다면 앱에서 <span class="nb">‘원생 신규 신청’을</span> 해 주세요. 학원에서 승인하면 연결됩니다.</span>
           </div>
         </div>
-        <figure class="join-media" data-rise>
-          <div class="device"><div class="iphone"><div class="screen"><img src="assets/img/app-invite.webp" width="660" height="1434" loading="lazy" alt="초대코드 등록 화면. 학원에서 받은 6자리 코드 입력란과 숫자 키패드가 있습니다."></div></div></div>
-          <figcaption>앱의 ‘학원 초대코드 등록’ 화면</figcaption>
-        </figure>
       </div>
     </section>
 
@@ -1163,11 +1134,11 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
         <div class="qa">
           <article class="qa-item">
             <h3 class="h3">초대코드를 받지 못했어요</h3>
-            <p>다니는 도장에 학부모님 휴대폰 번호로 초대코드를 보내 달라고 요청해 주세요. <span class="nb">카카오 알림톡으로</span> 링크와 6자리 코드가 발송됩니다.</p>
+            <p>다니는 학원에 학부모님 휴대폰 번호로 초대코드를 보내 달라고 요청해 주세요. <span class="nb">카카오 알림톡으로</span> 링크와 6자리 코드가 발송됩니다.</p>
           </article>
           <article class="qa-item">
             <h3 class="h3">초대코드가 맞지 않다고 나와요</h3>
-            <p>초대코드는 받은 후 48시간 안에 한 번만 <span class="nb">사용할 수 있습니다.</span> 시간이 지났거나 이미 사용한 코드라면 도장에 다시 요청해 주세요.</p>
+            <p>초대코드는 받은 후 48시간 안에 한 번만 <span class="nb">사용할 수 있습니다.</span> 시간이 지났거나 이미 사용한 코드라면 학원에 다시 요청해 주세요.</p>
           </article>
           <article class="qa-item">
             <h3 class="h3">알림이 오지 않아요</h3>
@@ -1175,11 +1146,11 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
           </article>
           <article class="qa-item">
             <h3 class="h3">결제한 수업료는 어디로 가나요?</h3>
-            <p>다니는 도장으로 정산됩니다. 결제 화면의 <span class="nb">‘가맹점 정보’에서</span> 수업료를 받는 도장의 상호와 사업자번호를 <span class="nb">확인할 수 있습니다.</span></p>
+            <p>다니는 학원으로 정산됩니다. 결제 화면의 <span class="nb">‘가맹점 정보’에서</span> 수업료를 받는 학원의 상호와 사업자번호를 <span class="nb">확인할 수 있습니다.</span></p>
           </article>
           <article class="qa-item">
             <h3 class="h3">앱 없이도 수업료를 <span class="nb">낼 수 있나요?</span></h3>
-            <p>네. 도장에서 보낸 <span class="nb">카카오 알림톡의</span> 링크를 누르면 앱과 같은 결제 화면이 열립니다. <span class="nb">등원 알림과</span> 셔틀 위치는 앱에서 확인해 주세요.</p>
+            <p>네. 학원에서 보낸 <span class="nb">카카오 알림톡의</span> 링크를 누르면 앱과 같은 결제 화면이 열립니다. <span class="nb">등원 알림과</span> 셔틀 위치는 앱에서 확인해 주세요.</p>
           </article>
           <article class="qa-item">
             <h3 class="h3">회원 탈퇴는 어떻게 하나요?</h3>
@@ -1209,15 +1180,16 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="#main"><img src="assets/img/icon-64.png" width="30" height="30" alt=""><span>MTA 아이오늘</span></a>
-        <p>태권도장 관리자 페이지와 학부모님 앱 ‘아이오늘’</p>
+        <a class="brand" href="#main"><img src="assets/img/icon-64.png" width="30" height="30" alt=""><span>아이오늘</span></a>
+        <p>학원 관리자 페이지와 학부모님 앱 ‘아이오늘’</p>
       </div>
       <nav class="footer-col" aria-label="안내">
         <strong>안내</strong>
         <a href="support.html">고객지원</a>
         <a href="privacy.html">개인정보처리방침</a>
         <a href="delete-account.html">계정 삭제 요청</a>
-        <a href="https://mta-admin.ionul.co.kr/">관리자 로그인</a>
+        <a href="https://academy.ionul.co.kr/login">관리자 로그인</a>
+        <a href="https://mta.ionul.co.kr/">태권도장용 MTA 아이오늘</a>
       </nav>
       <div class="footer-col">
         <strong>문의</strong>
@@ -1240,7 +1212,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
 
 <div class="mbar" id="mbar">
   <div class="mbar-row" data-mode="owner">
-    <a class="btn btn-primary" href="https://mta-admin.ionul.co.kr/signup">가입 신청하기</a>
+    <a class="btn btn-primary" href="https://academy.ionul.co.kr/signup">가입 신청하기</a>
   </div>
   <div class="mbar-row two" data-mode="parents" hidden>
     <a class="btn btn-store" href="https://apps.apple.com/kr/app/id6795511939" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-brand-apple"/></svg>App Store</a>
@@ -1297,7 +1269,7 @@ figcaption, .caption { font-size: 14px; color: var(--text-3); line-height: 1.55;
   }
 
   // 학부모 앱 둘러보기: 읽고 있는 설명에 맞춰 휴대폰 화면을 바꿉니다.
-  var stage = document.querySelectorAll('.tour-stage img');
+  var stage = document.querySelectorAll('.tour-stage [data-step]');
   var steps = document.querySelectorAll('.tour-step');
   if (hasIO && stage.length && steps.length) {
     var tourIO = new IntersectionObserver(function (entries) {
